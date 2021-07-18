@@ -30,7 +30,7 @@ function importText(text) {
 }
 
 function exportText(html) {
-  const str = $(html)
+  const fullSentence = $(html)
     .clone() // create deep copy of the set of matched elements to avoid changes in the original string
     .children() // find all of input and textarea as children el in the $(html)
     .replaceWith(function () {
@@ -38,13 +38,13 @@ function exportText(html) {
       if (this instanceof HTMLInputElement) {
         return `{{input:${this.value}}}`;
       } else {
-        return `{{textarea: ${this.value}}}`;
+        return `{{textarea:${this.value}}}`;
       }
     })
     .end() //  ends the current oprations in the chain and returns the object to its state before
     .text(); // get the text of all children
 
-  return str;
+  return fullSentence;
 }
 
 btnImport.click(() => {
@@ -56,7 +56,6 @@ btnImport.click(() => {
 
 btnExport.click(() => {
   const textToExport = showResult[0];
-  console.log(textToExport);
   const exportedRwsult = exportText(textToExport); // fires export text function with param to export back to the textarea #mainTextArea
   textAreaImport.val(exportedRwsult); // updates text afted input and textarea is changed by the user
 });
