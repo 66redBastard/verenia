@@ -31,7 +31,7 @@ function importText(text) {
 
 function exportText(html) {
   const str = $(html)
-    .clone() // create deep copy of the set of matched elements
+    .clone() // create deep copy of the set of matched elements to avoid changes in the original string
     .children() // find all of input and textarea as children el in the $(html)
     .replaceWith(function () {
       // this function is replacing string with help of this keyword
@@ -41,8 +41,8 @@ function exportText(html) {
         return `{{textarea: ${this.value}}}`;
       }
     })
-    .end()
-    .text();
+    .end() //  ends the current oprations in the chain and returns the object to its state before
+    .text(); // get the text of all children
 
   return str;
 }
